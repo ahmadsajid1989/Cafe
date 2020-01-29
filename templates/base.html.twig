@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Welcome to Bongo Cafe app{% endblock %}</title>
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
     <!-- Styles -->
@@ -21,27 +22,33 @@
             height: 100vh;
             margin: 0;
         }
+
         .top-right {
             position: absolute;
             right: 10px;
             top: 18px;
         }
+
         .full-height {
             height: auto;
             min-height: 100vh;
         }
+
         .flex-center {
             align-items: center;
             display: flex;
             justify-content: center;
         }
+
         .position-ref {
             position: relative;
         }
+
         .title {
             text-align: center;
             font-size: 50px;
         }
+
         .links > a {
             color: #636b6f;
             padding: 0 25px;
@@ -51,8 +58,23 @@
             text-decoration: none;
             text-transform: uppercase;
         }
+
         .m-b-md {
             margin-bottom: 30px;
+        }
+
+        .help-id {
+            background: none;
+            border: none;
+            box-shadow: none;
+            padding-left: 0;
+            text-decoration: underline;
+            color: dodgerblue;
+        }
+
+        .id-example {
+            width: 50%;
+            height: auto;
         }
     </style>
     {% block styles %}{% endblock %}
@@ -66,18 +88,24 @@
                 <a href="{{ path('app_logout') }}">Logout</a>
             </p>
         {% else %}
-            <a href="{{ path('app_login') }}">Log in</a>
+            {% if  path(app.request.get('_route')) == path('app_register') %}
+                <a href="{{ path('app_login') }}">Log in</a>
+            {% else %}
+                <a href="{{ path('app_register') }}">Register</a>
+                <a href="{{ path('app_login') }}">Log in</a>
+            {% endif %}
         {% endif %}
     </div>
     <div class="content">
         <div class="title m-b-md">
+{#            <a href="{{ path('app_home') }}"> Bongo Cafe</a>#}
             Bongo Cafe
         </div>
         {% block body %}
         {% endblock %}
     </div>
 </div>
-
+{% block modal %}{% endblock %}
 {% block javascripts %}{% endblock %}
 </body>
 </html>

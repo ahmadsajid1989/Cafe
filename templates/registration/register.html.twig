@@ -3,15 +3,56 @@
 {% block title %}Registration{% endblock %}
 
 {% block body %}
-    <h1>Register To Bongo Cafe</h1>
+
     {% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.bongoId) }}
-        {{ form_row(registrationForm.department) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    {{ form_row(registrationForm.name) }}
+    <button type="button" class="help-id" data-toggle="modal" data-target="#myModal">Where to find?</button>
+    {{ form_row(registrationForm.bongoId) }}
+    {% if form.vars.help ?? false %}
+        <div class="form--help">{{ form.vars.help }}</div>
+    {% endif %}
+
+    {{ form_row(registrationForm.department) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.phone) }}
+    {{ form_row(registrationForm.plainPassword) }}
+    {{ form_row(registrationForm.agreeTerms) }}
     {{ form_end(registrationForm) }}
+{% endblock %}
+{% block modal %}
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+
+                        <img src="{{ asset('bundles/assets/Id_card_example.jpg') }}" class="id-example" alt="ID card example"/>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <script type="application/javascript">
+        $('.help-id').on('click', function () {
+            $('#myModal').modal();
+        })
+
+    </script>
 {% endblock %}

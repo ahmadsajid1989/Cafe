@@ -244,7 +244,7 @@ class User implements UserInterface
     /**
      * @return int
      */
-    public function getPhone(): int
+    public function getPhone(): ?int
     {
         return  $this->phone;
     }

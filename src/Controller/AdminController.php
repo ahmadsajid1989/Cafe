@@ -8,20 +8,15 @@ use App\Entity\Ledger;
 use App\Entity\User;
 use App\Form\LedgerEntryFormType;
 use Doctrine\ORM\QueryBuilder;
-use Omines\DataTablesBundle\Adapter\Doctrine\Event\ORMAdapterQueryEvent;
-use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
-use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapterEvents;
 use Omines\DataTablesBundle\Column\BoolColumn;
 use Omines\DataTablesBundle\Column\DateTimeColumn;
 use Omines\DataTablesBundle\Column\NumberColumn;
 use Omines\DataTablesBundle\DataTable;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Omines\DataTablesBundle\Adapter\ArrayAdapter;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTableFactory;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
@@ -141,7 +136,7 @@ class AdminController extends AbstractController
 //        })
 
        ->handleRequest($request);
-//dump($table);exit;
+
 
         if ($table->isCallback()) {
             return $table->getResponse();

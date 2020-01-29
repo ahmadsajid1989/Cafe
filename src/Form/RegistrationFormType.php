@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,8 +23,9 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',TextType::class, array("label" => "Your Name", "required" => true))
+            ->add('name',TextType::class, array("help"=>'Your full name',"label" => "Your Name", "required" => true))
             ->add('bongoId', NumberType::class, array(
+                'help' => 'Make sure to add valid ID card number (7 digit) with 000 as prefix',
                 "label" => " Your Id Card Number:", "required" => true, 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter your 7 digit',
@@ -57,7 +59,8 @@ class RegistrationFormType extends AbstractType
                     "Video Editing" => "video editing",
                     "Media Consultant" => "media consultant"
                 ) ))
-            ->add('email', EmailType::class, array("label" => "Bongo Email","required" => true))
+            ->add('email', EmailType::class, array("help" => "Make sure you use your bongo email","label" => "Bongo Email","required" => true))
+            ->add('phone', TelType::class, array("help" => "i.e: 01715119693","label" => " Mobile Number"))
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

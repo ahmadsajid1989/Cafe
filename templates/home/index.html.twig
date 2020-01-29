@@ -5,5 +5,10 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('admin_home') }}">Admin Dashboard</a>
         {% endif %}
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('user_home') }}">Transaction History</a>
+            <a href="{{ path('user_home') }}">Menu</a>
+            <a href="{{ path('user_home') }}">Add Balance</a>
+        {% endif %}
     </div>
 {% endblock %}
