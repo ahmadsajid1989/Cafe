@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <div class="links">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('admin_home') }}">Admin Dashboard</a>
+        {% endif %}
+    </div>
+{% endblock %}

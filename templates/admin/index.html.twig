@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block styles %}
+    <!-- in the <head> section -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>
+{% endblock %}
+{% block body %}
+    <div id="employees">Loading...</div>
+
+{% endblock %}
+{% block javascripts %}
+    <!-- before the closing <body> tag -->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>
+    <!-- Insert this at the end of your body element, but before the closing tag -->
+    <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
+    <script>
+        $(function() {
+            $('#employees').initDataTables({{ datatable_settings(datatable) }}, {
+                searching: true,
+                dom:'<"html5buttons"B>lTfgitp',
+                buttons: [
+                    'copy',
+                    { extend: 'pdf', title: 'domains'},
+                    { extend: 'print' }
+                ]
+            });
+        });
+    </script>
+{% endblock %}

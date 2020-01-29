@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block body %}
+    <h1>Register To Bongo Cafe</h1>
+    {% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.name) }}
+        {{ form_row(registrationForm.bongoId) }}
+        {{ form_row(registrationForm.department) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+    {{ form_end(registrationForm) }}
+{% endblock %}
