@@ -5,6 +5,12 @@ namespace App\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
+/**
+ * Class EmailDomain
+ * @package App\Validator
+ * @Annotation
+ */
+
 class EmailDomain extends Constraint
 {
     public $domains;

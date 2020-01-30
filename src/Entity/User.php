@@ -5,9 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use PhpParser\Node\Expr\Cast\Object_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator as CustomAssert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -23,6 +25,8 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Assert\Email()
+     * @CustomAssert\EmailDomain(domains = {"bongobd.com"})
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
