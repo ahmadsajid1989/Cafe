@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Validator\EmailDomain;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,7 +26,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('name',TextType::class, array("help"=>'Your full name',"label" => "Your Name", "required" => true))
             ->add('bongoId', NumberType::class, array(
-                'help' => 'Make sure to add valid ID card number (7 digit) with 000 as prefix',
+                'help' => 'Make sure to add valid ID card number (7 digit) without 000 as prefix',
                 "label" => " Your Id Card Number:", "required" => true, 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter your 7 digit',
@@ -59,7 +60,8 @@ class RegistrationFormType extends AbstractType
                     "Video Editing" => "video editing",
                     "Media Consultant" => "media consultant"
                 ) ))
-            ->add('email', EmailType::class, array("help" => "Make sure you use your bongo email","label" => "Bongo Email","required" => true))
+            ->add('email', EmailType::class, array("help" => "Make sure you use your bongo email","label" => "Bongo Email","required" => true,)
+                )
             ->add('phone', TelType::class, array("help" => "i.e: 01715119693","label" => " Mobile Number"))
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
