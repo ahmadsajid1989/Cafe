@@ -30,18 +30,18 @@ class LedgerController extends AbstractController
     public function deductFromBalance(Request $request, LoggerInterface $logger): Response
     {
         $padded_bongo_id = $request->getContent();
-        $bongo_id= hexdec(substr($padded_bongo_id,4,6));
-        $logger->info(sprintf("received %s from RFID",$bongo_id));
+        $bongo_id = hexdec(substr($padded_bongo_id, 4, 6));
+        $logger->info(sprintf("received %s from RFID", $bongo_id));
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['bongo_id' => $bongo_id]);
 
         if (!$user) {
-            $logger->error(sprintf("can't find %s, this user",$bongo_id));
+            $logger->error(sprintf("can't find %s, this user", $bongo_id));
             return new Response("Can't find user", 400);
         }
 
         $em = $this->getDoctrine()->getManager();
 
-        if($this->getDoctrine()->getRepository(Ledger::class)->isEligibleToCharge($user)) {
+        if ($this->getDoctrine()->getRepository(Ledger::class)->isEligibleToCharge($user)) {
 
             $balance = $this->getDoctrine()->getRepository(Ledger::class)->getBalance($user);
 
@@ -55,9 +55,10 @@ class LedgerController extends AbstractController
                 $ledger->setUser($user);
                 $em->persist($ledger);
                 $em->flush();
-            }
 
-            return new Response('ok',200);
+                return new Response('ok', 200);
+            }
+            return new Response('error', 400);
         }
 
         return new Response('error', 400);
