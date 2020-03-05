@@ -45,7 +45,7 @@ class LedgerRepository extends EntityRepository
             ->andWhere('DATE(l.created_at) = CURRENT_DATE()')
             ->setParameter('user', $userObject)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getResult();
 
         if($qb['debit'] > 0) {
             return false;
