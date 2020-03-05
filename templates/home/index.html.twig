@@ -8,7 +8,7 @@
         {% if is_granted('ROLE_USER') %}
             <a href="{{ path('user_home') }}">Transaction History</a>
             <a href="{{ path('user_home') }}">Menu</a>
-            <a href="{{ path('user_home') }}">Add Balance</a>
+            <a href="{{ path('user_myaccount') }}">My Account</a>
         {% endif %}
     </div>
 {% endblock %}

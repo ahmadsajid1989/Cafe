@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Ledger;
+use App\Entity\User;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\DateTimeColumn;
@@ -15,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -80,13 +82,7 @@ class UserController extends AbstractController
                         ->setParameter('userId', $id)
                     ;
                 },
-            ])
-
-//        $table->addEventListener(ORMAdapterEvents::PRE_QUERY, function(ORMAdapterQueryEvent $event) {
-//            $event->getQuery()->useResultCache(true)->useQueryCache(true);
-//        })
-
-            ->handleRequest($request);
+            ])->handleRequest($request);
 
 
         if ($table->isCallback()) {
@@ -96,5 +92,26 @@ class UserController extends AbstractController
         return $this->render('user/index.html.twig', array(
             'datatable' => $table
         ));
+    }
+    /**
+     * @Route("/user/my-account", name="user_myaccount")
+     * @IsGranted("ROLE_USER")
+     * @param Request $request
+     *
+     * @return Response
+     */
+
+    public function myAccount(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $id = $this->getUser()->getId();
+
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        if(!$user) {
+            throw new NotFoundHttpException("%s is not associated with any user");
+        }
+
+        return $this->render("user/myaccount.html.twig", array("user" => $user));
     }
 }
